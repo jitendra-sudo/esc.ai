@@ -2,6 +2,7 @@ import { Geist_Mono, Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 import Header from "@/components/organisms/header";
+import CursorProvider from "@/components/atoms/CursorProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,10 +36,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="min-h-full flex flex-col" style={{ cursor: "none", background: "#060812", color: "#ffffff" }}>
+        <CursorProvider />
         <Header />
         {children}
       </body>
     </html>
   );
 }
-

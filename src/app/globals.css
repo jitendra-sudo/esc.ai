@@ -707,8 +707,221 @@ main { position: relative; z-index: 2; }
 }
 
 /* ─────────────────────────────────────────
-   MOBILE
+   RESPONSIVE — TABLET  (≤1024px)
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  /* Hero */
+  .hero-title {
+    font-size: clamp(2.4rem, 7vw, 5rem);
+  }
+
+  /* Service / process grids → 2 columns */
+  [style*="minmax(300px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  [style*="minmax(220px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  [style*="minmax(240px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE — MOBILE  (≤768px)
 ───────────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero-title { font-size: clamp(2rem, 10vw, 3.5rem); }
+
+  /* ── Typography ── */
+  .hero-title {
+    font-size: clamp(2rem, 9vw, 3.2rem);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+    padding: 0 0.25rem;
+  }
+
+  /* ── Hero section ── */
+  .hero-section {
+    padding: 7rem 1.25rem 3.5rem !important;
+    min-height: auto !important;
+  }
+
+  /* Shrink hero orbs so they don't cause horizontal overflow */
+  .hero-orb {
+    max-width: 280px !important;
+    max-height: 280px !important;
+  }
+
+  /* ── Buttons — stack vertically on very small viewports ── */
+  .btn-primary,
+  .btn-ghost,
+  .btn-neon {
+    padding: 12px 24px;
+    font-size: 0.85rem;
+  }
+
+  /* Button groups inside hero */
+  div[style*="gap: 16"] > .btn-primary,
+  div[style*="gap: 16"] > .btn-ghost,
+  div[style*="gap: 16"] > .btn-neon,
+  div[style*="gap:16"] > .btn-primary,
+  div[style*="gap:16"] > .btn-ghost,
+  div[style*="gap:16"] > .btn-neon {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ── Stat cards — 2 columns ── */
+  div[style*="minmax(150px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  div[style*="minmax(160px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .stat-card { padding: 16px 18px; }
+  .stat-num  { font-size: 1.6rem; }
+
+  /* ── Service / pillar / team / process cards — 1 column ── */
+  div[style*="minmax(300px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  div[style*="minmax(260px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  div[style*="minmax(240px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  div[style*="minmax(220px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  div[style*="minmax(280px"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  div[style*="minmax(250px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* ── Philosophy 2×2 pillars inside values section — keep 2 col ── */
+  div[style*="1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* ── Contact form 2-col name/email → 1 col ── */
+  div[style*="gridTemplateColumns: \"1fr 1fr\""] {
+    grid-template-columns: 1fr !important;
+  }
+  /* also catch style attribute written differently */
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Service cards padding ── */
+  .service-card { padding: 22px; }
+
+  /* ── Section padding ── */
+  section[style*="7rem 1.5rem"] {
+    padding: 4rem 1.25rem !important;
+  }
+  section[style*="5rem 1.5rem"] {
+    padding: 3rem 1.25rem !important;
+  }
+  section[style*="4rem 1.5rem"] {
+    padding: 2.5rem 1.25rem !important;
+  }
+
+  /* ── Testimonial cards ── */
+  .testimonial-card { padding: 22px 18px; }
+
+  /* ── Portfolio filter tabs — allow wrap ── */
+  div[style*="justifyContent: \"center\""][style*="gap: 10"] {
+    gap: 8px !important;
+  }
+
+  /* ── Contact split layout → stack ── */
+  div[style*="minmax(300px, 1fr)"][style*="gap: 40"] {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  /* ── Values split layout → stack ── */
+  div[style*="minmax(280px, 1fr)"][style*="gap: 48"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* ── Header nav items spacing ── */
+  .header-nav { padding: 0.5rem 0.75rem; }
 }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE — SMALL PHONE  (≤480px)
+───────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(1.75rem, 10vw, 2.8rem);
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Stat cards → 1 column on very small phones */
+  div[style*="minmax(150px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Service card inner padding */
+  .service-card { padding: 18px; }
+  .service-icon { width: 44px !important; height: 44px !important; }
+
+  /* Buttons full width */
+  .btn-primary,
+  .btn-ghost,
+  .btn-neon {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+
+  /* Hero orbs — hide on very small screens for perf */
+  .hero-orb:nth-child(3) { display: none; }
+
+  /* Ornament divider — smaller */
+  .ornament-divider { max-width: 200px; }
+
+  /* Footer flex → column */
+  footer div[style*="justifyContent: \"space-between\""] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 24px !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   UTILITY — prevent horizontal overflow
+───────────────────────────────────────── */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+main, section {
+  overflow-x: hidden;
+  width: 100%;
+}
+

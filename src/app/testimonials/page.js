@@ -1,65 +1,123 @@
-import React from 'react'
-import { FaStar, FaQuoteLeft } from 'react-icons/fa'
+"use client";
+import dynamic from "next/dynamic";
+import { useEffect } from "react";
+import { FaStar, FaArrowRight } from "react-icons/fa";
 
-export const metadata = {
-    title: 'Testimonials — esc.ai',
-    description: 'Customer testimonials for esc.ai',
+const ThreeCanvas  = dynamic(() => import("@/components/atoms/ThreeCanvas"),  { ssr: false });
+const CustomCursor = dynamic(() => import("@/components/atoms/CustomCursor"), { ssr: false });
+
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal-on-scroll, .reveal-scale");
+    const io  = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); } }),
+      { threshold: 0.12 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 }
 
 const TESTIMONIALS = [
-    {
-        q: 'Great work — our conversion rate improved dramatically. ESC.AI truly delivers.',
-        name: 'Client A',
-        role: 'CEO, SomeStartup',
-        avatar: 'CA',
-        rating: 5,
-    },
-    {
-        q: 'Fast, reliable delivery and excellent communication from start to finish.',
-        name: 'Client B',
-        role: 'Product Lead, TechCo',
-        avatar: 'CB',
-        rating: 5,
-    },
-    {
-        q: 'The 3D animations blew our customers away. Worth every penny.',
-        name: 'Client C',
-        role: 'Founder, AuraUI',
-        avatar: 'CC',
-        rating: 5,
-    },
-]
+  { q: "ESC.AI built us something that stopped people mid-scroll. Our conversion rate jumped 3x in the first week.", name: "Priya Sharma",  role: "Founder, NovaDrop",  avatar: "PS", rating: 5, color: "#c9a84c", glow: "rgba(201,168,76,0.25)" },
+  { q: "They speak both classical polish and Gen Z chaos fluently. That rare mix is exactly what our brand needed.", name: "Marcus Chen",  role: "CMO, Fluxion Labs",   avatar: "MC", rating: 5, color: "#00ffe7", glow: "rgba(0,255,231,0.25)" },
+  { q: "The 3D animations are insane. Clients literally call us to ask who built the site. Worth every rupee.",     name: "Zoe Williams", role: "CEO, AuraUI Studio",  avatar: "ZW", rating: 5, color: "#9b4dff", glow: "rgba(155,77,255,0.25)" },
+];
+
+const handleCardMove = (e) => {
+  const card = e.currentTarget;
+  const rect  = card.getBoundingClientRect();
+  card.style.setProperty("--mouse-x", `${((e.clientX - rect.left) / rect.width)  * 100}%`);
+  card.style.setProperty("--mouse-y", `${((e.clientY - rect.top)  / rect.height) * 100}%`);
+};
 
 export default function TestimonialsPage() {
-    return (
-        <div className="py-20 px-6">
-            <div className="max-w-4xl mx-auto">
-                <h1 className="text-3xl font-bold mb-2">Testimonials</h1>
-                <p className="text-[var(--color-text-muted)] mb-10">What our clients say about working with us.</p>
+  useReveal();
+  return (
+    <>
+      <ThreeCanvas />
+      <CustomCursor />
+      <div className="noise-overlay" />
+      <main style={{ position: "relative", zIndex: 2 }}>
 
-                <div className="space-y-6">
-                    {TESTIMONIALS.map(({ q, name, role, avatar, rating }) => (
-                        <blockquote key={name} className="p-6 rounded-2xl bg-[var(--color-bg-section)] border border-white/5">
-                            <FaQuoteLeft style={{ color: 'var(--gold)', fontSize: '1.2rem', marginBottom: '0.75rem', opacity: 0.6 }} />
-                            <p className="text-white/80 leading-relaxed mb-4">{q}</p>
-                            <div className="flex items-center gap-2 mb-3">
-                                {[...Array(rating)].map((_, i) => (
-                                    <FaStar key={i} style={{ color: 'var(--gold)', fontSize: '0.8rem' }} />
-                                ))}
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
-                                    {avatar}
-                                </div>
-                                <div>
-                                    <div className="font-semibold text-sm">{name}</div>
-                                    <div className="text-xs text-[var(--color-text-muted)]">{role}</div>
-                                </div>
-                            </div>
-                        </blockquote>
-                    ))}
-                </div>
+        {/* ══ HERO ══ */}
+        <section className="hero-section flex items-center justify-center px-5 pt-28 pb-14 sm:pt-36 sm:pb-16" style={{ minHeight: "55svh" }}>
+          <div className="hero-orb" style={{ width: 500, height: 500, background: "radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)", top: "5%", left: "-10%", animationDelay: "0s" }} />
+          <div className="hero-orb" style={{ width: 500, height: 500, background: "radial-gradient(circle, rgba(255,45,120,0.10) 0%, transparent 70%)", bottom: "0%", right: "-15%", animationDelay: "2s" }} />
+
+          <div className="w-full max-w-5xl mx-auto text-center">
+            <div className="flex justify-center mb-8">
+              <span className="hero-label reveal-on-scroll">
+                <span className="hero-label-dot" />
+                Social Proof
+              </span>
             </div>
-        </div>
-    )
+            <div className="reveal-on-scroll" style={{ transitionDelay: "0.1s" }}>
+              <h1 className="hero-title font-serif mb-6">
+                They <em style={{ fontStyle: "italic", color: "var(--neon-pink)" }}>talk.</em>{" "}
+                We <span className="text-gold">deliver.</span>
+              </h1>
+              <p className="hero-subtitle mx-auto">
+                Hear from the visionaries, founders, and teams who escaped the ordinary with ESC.AI.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ TESTIMONIALS ══ */}
+        <section className="px-5 py-12 sm:py-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {TESTIMONIALS.map((t, i) => (
+                <div key={i} className="testimonial-card reveal-on-scroll flex flex-col" style={{ transitionDelay: `${i * 0.1}s` }} onMouseMove={handleCardMove}>
+                  {/* Stars */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(t.rating)].map((_, j) => (
+                      <span key={j} style={{ color: "var(--gold)", fontSize: "0.85rem" }}>★</span>
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <p className="text-sm leading-relaxed mb-6 flex-1 italic" style={{ color: "rgba(255,255,255,0.8)" }}>
+                    &ldquo;{t.q}&rdquo;
+                  </p>
+
+                  {/* Client */}
+                  <div className="flex items-center gap-3 mt-auto pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs shrink-0"
+                      style={{ background: t.glow, border: `2px solid ${t.color}44`, color: t.color, boxShadow: `0 0 16px ${t.glow}` }}>
+                      {t.avatar}
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#fff" }}>{t.name}</div>
+                      <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", fontFamily: "var(--font-mono)" }}>{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ CTA ══ */}
+        <section className="px-5 py-14 sm:py-20 relative overflow-hidden">
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(155,77,255,0.08) 0%, rgba(0,255,231,0.05) 50%, rgba(255,45,120,0.08) 100%)", borderTop: "1px solid rgba(155,77,255,0.2)", borderBottom: "1px solid rgba(0,255,231,0.15)" }} />
+          <div className="reveal-scale max-w-2xl mx-auto text-center relative">
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", letterSpacing: "0.2em", color: "var(--neon-cyan)", marginBottom: 16, textTransform: "uppercase" }}>— Be Our Next Success Story —</div>
+            <h2 className="font-serif text-3xl sm:text-5xl font-black leading-tight mb-5">
+              Ready to build something <span className="text-genz">unforgettable</span>?
+            </h2>
+            <p className="mb-8" style={{ color: "var(--color-text-muted)", lineHeight: 1.7 }}>
+              Let&apos;s build an extraordinary digital presence that sets you apart.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <a href="/contact" className="btn-primary w-full sm:w-auto justify-center">Book a Free Call ✦</a>
+              <a href="/portfolio" className="btn-ghost w-full sm:w-auto justify-center">See Our Work</a>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </>
+  );
 }

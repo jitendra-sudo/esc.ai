@@ -9,10 +9,9 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Services", href: "#services" },
+  { name: "Services", href: "/services" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Testimonials", href: "/testimonials" },
-  { name: "Contact", href: "#contact" },
 ];
 
 function Header() {
@@ -59,7 +58,7 @@ function Header() {
           >
             ESC
           </span>
-          <span style={{ color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-mono)", fontSize: "1.1rem" }}>.ai</span>
+          <span style={{ color: "rgba(235, 10, 10)", fontFamily: "var(--font-mono)", fontSize: "1.1rem" }}>.ai</span>
         </Link>
 
         {/* ── Desktop Nav ── */}
